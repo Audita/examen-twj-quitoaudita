@@ -1,0 +1,129 @@
+<div class="page-header" >
+  <h1 align="center">{{title}}</h1>
+</div>
+<div class="col-sm-6">
+<form class="animated bounceIn" (ngSubmit)="crearArtista(NuevoArtistaForm)" #NuevoArtistaForm="ngForm">
+
+  <div class="form-group">
+    <label>Nombre:</label>
+    <input required
+           minlength="3"
+           type="text"
+           class="form-control" placeholder="Ingrese el nombre del artista"
+           name="nombre"
+           [(ngModel)]="nuevoArtista.nombre"
+           #nombre="ngModel"
+           #nombreElm
+    >
+  </div>
+
+  <div class="form-group">
+    <label>Estilo</label>
+    <input required
+           minlength="3"
+           type="text"
+           class="form-control" placeholder="Ingrese el estilo"  name="estilo"
+           [(ngModel)]="nuevoArtista.estilo"
+           #nombre="ngModel"
+           #nombreElm
+    >
+  </div>
+
+  <div class="form-group">
+    <label>Pais de Residencia</label>
+    <input  required
+            minlength="3"
+            type="text"
+           class="form-control" placeholder="Ingrese el pais de recidencia"
+           name="paisResidencia"
+            [(ngModel)]="nuevoArtista.paisResidencia"
+            #nombre="ngModel"
+            #nombreElm>
+  </div>
+
+  <button [disabled]="disabledButtons.NuevoArtistaFormSubmitButton||!NuevoArtistaForm.valid" type="submit"
+          class="btn btn-block btn-success">Crear Artista
+  </button>
+</form>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 animated flipInX" *ngFor="let artista of artistas">
+    <div class="text-center">
+      <h3>{{artista.nombre}}</h3>
+      <p>ID: {{artista.id}}</p>
+      <p>Estilo: {{artista.estilo}}</p>
+      <p>PaisResidencia: {{artista.paisResidencia}}</p>
+    </div>
+    <div class="row animated flipInY" [hidden]="!artista.formularioCerrado">
+      <div class="col-sm-5">
+        <button class="btn btn-block btn-info"
+                (click)="artista.formularioCerrado = !artista.formularioCerrado"
+        >Actualizar</button>
+      </div>
+      <div class="col-sm-2"></div>
+      <div class="col-sm-5">
+        <button class="btn btn-block btn-danger" (click)="borrarArtista(artista.id)">Borrar</button>
+      </div>
+      <div class="col-sm-12">
+        <a [routerLink]="[artista.id,'album']">Ir a Album</a>
+      </div>
+    </div>
+    <div class="div" [hidden]="artista.formularioCerrado">
+      <form action="">
+        <form class="animated bounceIn" (ngSubmit)="actualizarArtista(artista)" #NuevaTiendaForm="ngForm">
+          <div class="form-group">
+            <label>Nombre:</label>
+            <input required
+                   minlength="3"
+                   type="text"
+                   class="form-control" placeholder="Ingrese el nombre del artista"
+                   name="nombre"
+                   [(ngModel)]="nuevoArtista.nombre"
+                   #nombre="ngModel"
+                   #nombreElm
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Estilo</label>
+            <input required
+                   minlength="3"
+                   type="text"
+                   class="form-control" placeholder="Ingrese el estilo"  name="estilo"
+                   [(ngModel)]="nuevoArtista.estilo"
+                   #nombre="ngModel"
+                   #nombreElm
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Pais de Residencia</label>
+            <input  required
+                    minlength="3"
+                    type="text"
+                    class="form-control" placeholder="Ingrese el pais de recidencia"
+                    name="paisResidencia"
+                    [(ngModel)]="nuevoArtista.paisResidencia"
+                    #nombre="ngModel"
+                    #nombreElm>
+          </div>
+          <button [disabled]="disabledButtons.NuevoArtistaFormSubmitButton||!NuevoArtistaForm.valid" type="submit"
+                  class="btn btn-block btn-success">Update
+          </button>
+          <button type="button"
+                  class="btn btn-block btn-warning"
+                  (click)="artista.formularioCerrado = !artista.formularioCerrado"
+          >
+            Cancelar
+          </button>
+        </form>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+
+
