@@ -71,7 +71,7 @@ export class ArtistaComponent implements OnInit {
       )
   }
 
-  actualizarArtista(artista: any) {
+  actualizarArtista(artista: any, formulario: NgForm) {
     let parametos = {
       nombre: artista.nombre,
       estilo: artista.estilo,

@@ -1,22 +1,125 @@
-<h1>Productos</h1>
 <div class="page-header" >
-  <h1 align="center">{{title}}</h1>
+  <h1 align="center">Albumes</h1>
 </div>
-<div class="container">
+<div class="col-sm-12">
+<div class="col-sm-3"></div>
+<div class="col-sm-6">
+  <form class="animated bounceIn" (ngSubmit)="crearAlbum(NuevoAlbumForm)" #NuevoAlbumForm="ngForm">
   <div class="form-group">
-    <label>Nombre de Producto</label>
+    <label>Nombre:</label>
     <input type="text"
            class="form-control"
+           placeholder="Ingrese el nombre del album"
            name="nombre"
-           [(ngModel)]="nuevoProducto.nombre"
+           [(ngModel)]="nuevoAlbum.nombre"
+           #nombre="ngModel"
+           #nombreElm
     >
   </div>
-  <button class="btn btn-block btn-success" (click)="crearProducto(nuevoProducto.nombre)">Crear Producto</button>
 
-  <div class="row">
-    <div class="col-sm-12" *ngFor="let producto of productos">
-      <h1>{{producto.nombre}}</h1>
-      <p>ID:{{producto.id}}</p>
+  <div class="form-group">
+    <label>Fecha de lanzamiento</label>
+    <input type="date"
+           class="form-control"
+           placeholder="Ingrese la fecha de lanzamiento"
+           name="fechaLanzamiento"
+           [(ngModel)]="nuevoAlbum.fechaLanzamiento"
+           #fechaLanzamiento="ngModel"
+           #nombreElm
+    >
+  </div>
+
+  <div class="form-group">
+    <label>URL de la Portada</label>
+    <input type="url"
+           class="form-control"
+           placeholder="Ingrese  la URL de la Portada"
+           name="URLPortada"
+           [(ngModel)]="nuevoAlbum.URLPortada"
+           #URLPortada="ngModel"
+           #nombreElm
+    >
+  </div>
+
+    <button [disabled]="disabledButtons.NuevoAlbumFormSubmitButton||!NuevoAlbumForm.valid" type="submit"
+            class="btn btn-block btn-success">Crear Album
+    </button>
+  </form>
+</div>
+  <div class="col-sm-3"></div>
+</div>
+<div class="row">
+  <div class="col-sm-6 animated flipInX" *ngFor="let album of albumes">
+    <div class="text-center">
+      <h3>{{album.nombre}}</h3>
+      <p>ID: {{album.id}}</p>
+      <p>Fecha de Lanzamiento: {{album.fechaLanzamiento}}</p>
+      <p>URL de la Portada: {{album.URLPortada}}</p>
     </div>
+    <div class="row animated flipInY" [hidden]="!album.formularioCerrado">
+      <div class="col-sm-5">
+        <button class="btn btn-block btn-info"
+                (click)="album.formularioCerrado = !album.formularioCerrado"
+        >Actualizar</button>
+      </div>
+      <div class="col-sm-2"></div>
+      <div class="col-sm-5">
+        <button class="btn btn-block btn-danger" (click)="borrarAlbum(album.id)">Borrar</button>
+      </div>
+    </div>
+    <div class="div" [hidden]="album.formularioCerrado">
+      <form action="">
+        <form class="animated bounceIn" (ngSubmit)="actualizarAlbum(album,album.id)" #NuevoAlbumForm="ngForm">
+          <div class="form-group">
+            <label>Nombre:</label>
+            <input type="text"
+                   class="form-control"
+                   placeholder="Ingrese el nombre del album"
+                   name="nombre"
+                   [(ngModel)]="album.nombre"
+                   #nombre="ngModel"
+                   #nombreElm
+            >
+          </div>
+
+          <div class="form-group">
+            <label>Fecha de lanzamiento</label>
+            <input type="date"
+                   class="form-control"
+                   placeholder="Ingrese la fecha de lanzamiento"
+                   name="fechaLanzamiento"
+                   [(ngModel)]="album.fechaLanzamiento"
+                   #fechaLanzamiento="ngModel"
+                   #nombreElm
+            >
+
+          </div>
+
+          <div class="form-group">
+            <label>URL de la Portada</label>
+            <input type="url"
+                   class="form-control"
+                   placeholder="Ingrese  la URL de la Portada"
+                   name="URLPortada"
+                   [(ngModel)]="album.URLPortada"
+                   #URLPortada="ngModel"
+                   #nombreElm
+            >
+          </div>
+
+
+          <button [disabled]="disabledButtons.NuevoAlbumFormSubmitButton||!NuevoAlbumForm.valid" type="submit"
+                  class="btn btn-block btn-success">Actualizar
+          </button>
+          <button type="button"
+                  class="btn btn-block btn-warning"
+                  (click)="album.formularioCerrado = !album.formularioCerrado"
+          >
+            Cancelar
+          </button>
+        </form>
+      </form>
+    </div>
+
   </div>
 </div>
